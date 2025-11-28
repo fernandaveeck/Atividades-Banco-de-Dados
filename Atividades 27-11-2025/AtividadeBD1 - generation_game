@@ -1,0 +1,60 @@
+CREATE DATABASE db_generation_game_online;
+
+USE db_generation_game_online;
+
+CREATE TABLE tb_classes(
+id BIGINT AUTO_INCREMENT PRIMARY KEY,
+classe VARCHAR(255) NOT NULL,
+funcao VARCHAR (255) NOT NULL);
+
+CREATE TABLE tb_personagens(
+id BIGINT AUTO_INCREMENT PRIMARY KEY,
+nome VARCHAR(255) NOT NULL,
+pontos_ataque INT NOT NULL,
+pontos_defesa INT NOT NULL,
+vida INT NOT NULL,
+velocidade INT NOT NULL,
+fk_id_personagem_classe BIGINT,
+FOREIGN KEY (fk_id_personagem_classe) REFERENCES tb_classes(id));
+
+SELECT * FROM tb_personagens;
+SELECT * FROM tb_classes;
+
+INSERT INTO tb_classes (classe, funcao) VALUES
+("Support","Healer"),
+("Support","Buffer"),
+("Mage","DPS"),
+("Archer","DPS"),
+("Assassin","Burst DPS"),
+("Fighter","Tank");
+
+INSERT INTO tb_personagens (nome, pontos_ataque, pontos_defesa, vida, velocidade, fk_id_personagem_classe) VALUES
+("Analei", 5600, 1600, 3000, 4900, 5),
+("Mafe", 3600, 2200, 3350, 2000, 3),
+("Lia", 2000, 6000, 7500, 1000, 6),
+("Nana", 1700, 3000, 2900, 2400, 1),
+("Pammyu", 5450, 1800, 3100, 4900, 5),
+("Trici", 3600, 2200, 3350, 2000, 4),
+("Rocky", 1300, 3500, 3000, 1300, 2),
+("Chase", 2000, 6000, 7500, 1000, 6);
+
+SELECT id, nome, pontos_ataque FROM tb_personagens WHERE pontos_ataque > 2000;
+
+SELECT id, nome, pontos_defesa FROM tb_personagens WHERE pontos_defesa BETWEEN 1000 AND 2000;
+
+SELECT id, nome FROM tb_personagens WHERE nome LIKE "%c%";
+
+SELECT tb_personagens.id, tb_personagens.nome, tb_classes.classe, tb_classes.funcao FROM tb_personagens
+INNER JOIN tb_classes ON tb_personagens.fk_id_personagem_classe = tb_classes.id ORDER BY tb_classes.classe;
+
+SELECT tb_personagens.id, tb_personagens.nome, tb_classes.classe, tb_classes.funcao FROM tb_personagens
+INNER JOIN tb_classes ON tb_personagens.fk_id_personagem_classe = tb_classes.id WHERE tb_classes.id = 5;
+
+
+
+
+
+
+
+
+
